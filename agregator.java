@@ -54,14 +54,14 @@ private RadiogramConnection conn_mote;
                     conn_light.receive(xdg_light);//reieve message from loght sensor
                     xdg_light.readDouble();
                     xdg_light.readLong();
-                    if (xdg_light.readByte()==1){
+                    if (xdg_light.readByte()==1){ //message is about day/night
                         System.out.println("TimeStamp = " + xdg_light.readDouble()+ " MAC = "+IEEEAddress.toDottedHex(xdg_light.readLong())+" command = "+ xdg_light.readByte() + " value = "+xdg_light.readBoolean());//printing out the datagram
                         conn_movement.send(xdg_light);
                         xdg_light.reset(); //delete the datagram for light sensor
                         xdg_movement.reset(); //delete the datagram for movement sensor
 
                     }
-                    else {
+                    else { //orher types of message
                     xdg_sink=xdg_light; // write the data in datagram
                     conn_sink.send(xdg_sink); //send datagram to sink
                     System.out.println("TimeStamp = " + xdg_light.readDouble()+ " MAC = "+IEEEAddress.toDottedHex(xdg_light.readLong())+" command = "+ xdg_light.readByte() + " value = who knows");//printing out the datagram
@@ -77,7 +77,7 @@ private RadiogramConnection conn_mote;
                     xdg_sink=xdg_movement; // write the string in datagram
                     conn_sink.send(xdg_sink); //send datagram to sink
                     xdg_sink.reset(); // delete the datagram for sink
-                    xdg_movement.reset(); //delete datagram for movement sensor
+                    xdg_movement.reset(); //delete datagram from movement sensor
                     }
                     
                     //recieve from sink
