@@ -55,6 +55,7 @@ private RadiogramConnection conn_mote;
                     xdg_light.readDouble();
                     xdg_light.readLong();
                     if (xdg_light.readByte()==1){
+                        System.out.println("TimeStamp = " + xdg_light.readDouble()+ " MAC = "+IEEEAddress.toDottedHex(xdg_light.readLong())+" command = "+ xdg_light.readByte() + " value = "+xdg_light.readBoolean());
                         xdg_movement=xdg_light;
                         conn_movement.send(xdg_light);
                         xdg_light.reset(); //delete the datagram for light sensor
@@ -64,13 +65,16 @@ private RadiogramConnection conn_mote;
                     else {
                     xdg_sink=xdg_light; // write the data in datagram
                     conn_sink.send(xdg_sink); //send datagram to sink
+                    System.out.println("TimeStamp = " + xdg_light.readDouble()+ " MAC = "+IEEEAddress.toDottedHex(xdg_light.readLong())+" command = "+ xdg_light.readByte() + " value = who knows");
                     xdg_sink.reset(); // delete the datagram for sink
                     xdg_light.reset(); //delete the datagram for light sensor
                         }
+
                     }
                      //recieve from movement sensor
                     if (conn_movement.packetsAvailable()==true){ //if message from movement sensor is available
                     conn_movement.receive(xdg_movement); //recieve message from movement sensor
+                    System.out.println("TimeStamp = " + xdg_movement.readDouble()+ " MAC = "+IEEEAddress.toDottedHex(xdg_movement.readLong())+" command = "+ xdg_movement.readByte() + " value = who knows");
                     xdg_sink=xdg_movement; // write the string in datagram
                     conn_sink.send(xdg_sink); //send datagram to sink
                     xdg_sink.reset(); // delete the datagram for sink
@@ -83,6 +87,7 @@ private RadiogramConnection conn_mote;
                     xdg_sink.readDouble();
                     conn_mote = (RadiogramConnection) Connector.open("radiogram://"+IEEEAddress.toDottedHex(xdg_sink.readLong())+":126"); //read the mac address of reciever
                     conn_mote.send(xdg_sink); //send datagram to mote
+                    System.out.println("TimeStamp = " + xdg_sink.readDouble()+ " MAC = "+IEEEAddress.toDottedHex(xdg_sink.readLong())+" command = "+ xdg_sink.readByte() + " value = who knows ");
                     xdg_sink.reset(); // delete the datagram from sink
                     }
 
