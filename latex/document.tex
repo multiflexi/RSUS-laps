@@ -36,7 +36,7 @@
 \usepackage{makecell}
 \usepackage{isodate}
 
-\linespread{2}
+
 
 
 \newcommand\ytl[2]{
@@ -222,13 +222,47 @@ Madrid 2018
 
 
 
-\newglossaryentry{ferrule}
-{
-	name=ferrule,
-	description={The most important, difficult to produce and also most expensive part of every round connector. It is a thin, precisely manufactured cylinder made usually out of zirconium dioxide which holds uninsulated fibre precisely in its axis. 
-	}
-}
-\chapter{Introduction}
+\chapter{Introduction and Executive Summary}
+\chapter{Scheduling of workload}
+\chapter{Requirement Analysis}
+\begin{figure}[ht]
+	\vspace{-2em}
+	\caption{General use}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.48\textwidth]{{"./img/Drawio/Use Cases/General use case diagram"}.png}
+	\vspace{-2em}
+\end{figure}
+\begin{table}[h]
+	\vspace{-1em}
+	\centering
+	\caption{General use}
+	\label{tab:general_use}
+	\begin{tabu}{|l|X[l]|}
+		\hline
+		\textbf{Name}        & \textbf{General use} \\ \hline
+		Scope and Objectives & The lights on the lampposts switch on/off depending on the information of the movement and light sensor of the motes (if the light is low and the movement sensor detects something, the lights turn on, otherwise they turn off). The data collection centre receives periodically this data and it is capable to change some parameters or request some information of the motes. \\ \hline
+		Actors               & \begin{itemize}
+								\item Pedestrians/vehicles
+								\item Data control department of the city
+								\end{itemize}  \\ \hline
+		Preconditions        & \begin{itemize}
+								\item The sensor nodes are on
+								\item A pedestrian/vehicle comes/goes away from the node
+								\end{itemize}   \\ \hline
+		Post-conditions      & \begin{itemize}
+								\item The lights will turn on/off
+								\item All the measured information will be sent to the city data manager
+								\end{itemize} \\ \hline
+		Sequence Description & \begin{enumerate}
+								\item Obtain measurements of movement, temperature, humidity and light.
+								\item If there is a change in the movement sensor and the light measured is low, toggle the lights on the node.
+								\item Send the status of light to the data control department of the city.
+								\end{enumerate} \\ \hline
+		Exceptions           & The node is not able to communicate with the data control department of the city. \\ \hline
+	\end{tabu}
+		\vspace{-6em}
+\end{table}
 
 
 
