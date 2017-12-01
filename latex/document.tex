@@ -1,0 +1,247 @@
+\documentclass[UKenglish,10pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{5mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+% \openright zařídí, aby následující text začínal na pravé straně knihy
+\let\openright=\clearpage
+\renewcommand{\baselinestretch}{1.0}%řádkování
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabu}
+\usepackage[hyphens]{url}
+\usepackage{color}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[backend=biber]{biblatex}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{wrapfig}
+\usepackage[section]{placeins}
+\usepackage{amsfonts}
+\usepackage{subcaption}
+\usepackage{chronosys}
+\usepackage{textcomp}
+\usepackage{framed}
+\usepackage{float}
+\usepackage[czech, UKenglish]{babel}
+\usepackage{multicol}
+\usepackage{breakurl}
+\usepackage[left]{eurosym}
+\usepackage[binary-units]{siunitx}
+\usepackage{makecell}
+\usepackage{isodate}
+
+\linespread{2}
+
+
+\newcommand\ytl[2]{
+\parbox[b]{8em}{\hfill{\color{cyan}\bfseries\sffamily #1}~$\cdots\cdots$~}\makebox[0pt][c]{$\bullet$}\vrule\quad \parbox[c]{7.5cm}{\vspace{7pt}\color{red!40!black!80}\raggedright\sffamily #2\\[7pt]}\\[-3pt]}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+%\usepackage[toc,page]{appendix}
+\usepackage[acronym,toc]{glossaries} 
+
+\usepackage[unicode,breaklinks]{hyperref}  % Musí být za všemi ostatními balíčky
+\usepackage{bookmark}
+
+
+
+
+%\usepackage{pdfpages}
+
+\addbibresource{ref.bib}
+
+
+%% Pokud tiskneme oboustranně:
+% \documentclass[12pt,a4paper,twoside,openright]{report}
+% \setlength\textwidth{145mm}
+% \setlength\textheight{247mm}
+% \setlength\oddsidemargin{15mm}
+% \setlength\evensidemargin{0mm}
+% \setlength\topmargin{0mm}
+% \setlength\headsep{0mm}
+% \setlength\headheight{0mm}
+% \let\openright=\cleardoublepage
+
+%% Pokud používáte csLaTeX (doporučeno):
+%\usepackage[czech]{babel}
+%% Pokud nikoliv:
+
+\begingroup
+    \makeatletter
+    \catcode`\-=\active
+    \AtBeginDocument{
+    \def\@@@cmidrule[#1-#2]#3#4{\global\@cmidla#1\relax
+        \global\advance\@cmidla\m@ne
+        \ifnum\@cmidla>0\global\let\@gtempa\@cmidrulea\else
+        \global\let\@gtempa\@cmidruleb\fi
+        \global\@cmidlb#2\relax
+        \global\advance\@cmidlb-\@cmidla
+        \global\@thisrulewidth=#3
+        \@setrulekerning{#4}
+        \ifnum\@lastruleclass=\z@\vskip \aboverulesep\fi
+        \ifnum0=`{\fi}\@gtempa
+        \noalign{\ifnum0=`}\fi\futurenonspacelet\@tempa\@xcmidrule}
+    }
+\endgroup
+
+
+%% Použité kódování znaků: obvykle latin2, cp1250 nebo utf8:
+%\usepackage[cp1250]{inputenc}
+
+%\usepackage[T1]{fontenc} %tohle by mělo udělat Times New Roman 
+%% Ostatní balíčky
+
+%\usepackage{mathtools}
+%\usepackage{amsthm}
+
+%% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,
+%% ale hlavně ho používáme k uložení metadat do PDF (včetně obsahu).
+%% POZOR, nezapomeňte vyplnit jméno práce a autora.
+\hypersetup{pdftitle=Optical communications}
+\hypersetup{pdfauthor=Bc. et Bc. Jaroslav Svoboda, pdfkeywords={optical,network}}
+%\hypersetup{hyperfootnotes=true}
+\makeglossaries
+%%% Drobné úpravy stylu
+
+% Tato makra přesvědčují mírně ošklivým trikem LaTeX, aby hlavičky kapitol
+% sázel příčetněji a nevynechával nad nimi spoustu místa. Směle ignorujte.
+\makeatletter
+\def\@makechapterhead#1{
+  {\parindent \z@ \raggedright \normalfont
+   \Huge\bfseries \thechapter. #1
+   \par\nobreak
+   \vskip 20\p@
+}}
+\def\@makeschapterhead#1{
+  {\parindent \z@ \raggedright \normalfont
+   \Huge\bfseries #1
+   \par\nobreak
+   \vskip 20\p@
+}}
+\makeatother
+
+% Toto makro definuje kapitolu, která není očíslovaná, ale je uvedena v obsahu.
+\def\chapwithtoc#1{
+\chapter*{#1}}
+\renewcommand{\familydefault}{\rmdefault}
+\begin{document}
+\selectlanguage{UKenglish}
+% Trochu volnější nastavení dělení slov, než je default.
+\lefthyphenmin=2
+\righthyphenmin=2
+\sisetup{range-phrase=--}
+%%% Titulní strana práce
+\begin{titlepage}
+
+
+\pagestyle{empty}
+\begin{center}
+
+\large
+
+TECHNICAL UNIVERSITY OF MADRID
+
+\medskip
+
+SCHOOL OF TELECOMMUNICATIONS SYSTEMS AND ENGINEERING
+
+\vfill
+
+{\bf\Large Semester Project}
+
+\vfill
+\centerline{\mbox{\includegraphics[width=60mm]{img/logo2.eps}\qquad{\includegraphics[width=60mm]{img/logo.eps}}}}
+			
+\vfill
+\vspace{5mm}
+
+{\LARGE Bc. et Bc. Jaroslav Svoboda}
+
+{\LARGE Jaime Sancho}
+
+{\LARGE Diallo Elhadj Sadou}
+
+\vspace{10mm}
+
+% Název práce přesně podle zadání
+{\LARGE\bfseries } Smart Lighting
+
+\vfill
+
+% Název katedry nebo ústavu, kde byla práce oficiálně zadána
+% (dle Organizační struktury MFF UK)
+UBIQUITOUS AND SECURE NETWORKS AND SERVICES
+
+\vfill
+
+\begin{tabular}{rl}
+
+Lecturer: & Jesus Rodriguez Molina  \\
+\noalign{\vspace{2mm}}
+Subject coordinator: & Jose Fernan Martinez Ortega \\
+\noalign{\vspace{2mm}}
+Degree programme: & Master in Systems and Services Engineering for the Information society \\
+\end{tabular}
+
+\vfill
+
+% Zde doplňte rok
+Madrid 2018
+
+\end{center}
+\end{titlepage}
+\newpage
+
+%%% Následuje vevázaný list -- kopie podepsaného "Zadání bakalářské práce".
+%%% Toto zadání NENÍ součástí elektronické verze práce, nescanovat.
+
+
+\openright
+
+\noindent
+
+
+
+%%% Strana s automaticky generovaným obsahem bakalářské práce. U matematických
+%%% prací je přípustné, aby seznam tabulek a zkratek, existují-li, byl umístěn
+%%% na začátku práce, místo na jejím konci.
+
+
+
+\openright
+\pagestyle{plain}
+\setcounter{page}{1}
+\tableofcontents
+
+
+
+\newglossaryentry{ferrule}
+{
+	name=ferrule,
+	description={The most important, difficult to produce and also most expensive part of every round connector. It is a thin, precisely manufactured cylinder made usually out of zirconium dioxide which holds uninsulated fibre precisely in its axis. 
+	}
+}
+\chapter{Introduction}
+
+
+
+\renewcommand{\acronymname}{List of acronyms}
+
+\printglossaries
+
+
+
+%\bibliographystyle{plain} 
+\printbibliography
+%%% Přílohy k bakalářské práci, existují-li (různé dodatky jako výpisy programů,
+%%% diagramy apod.). Každá příloha musí být alespoň jednou odkazována z vlastního
+%%% textu práce. Přílohy se číslují.
+\openright
+\end{document}
