@@ -39,6 +39,7 @@
 
 
 
+
 \newcommand\ytl[2]{
 \parbox[b]{8em}{\hfill{\color{cyan}\bfseries\sffamily #1}~$\cdots\cdots$~}\makebox[0pt][c]{$\bullet$}\vrule\quad \parbox[c]{7.5cm}{\vspace{7pt}\color{red!40!black!80}\raggedright\sffamily #2\\[7pt]}\\[-3pt]}
 
@@ -225,47 +226,112 @@ Madrid 2018
 \chapter{Introduction and Executive Summary}
 \chapter{Scheduling of workload}
 \chapter{Requirement Analysis}
+\section{General use}
 \begin{figure}[ht]
-	\vspace{-2em}
 	\caption{General use}
+	\label{fig:general_use}
 	\vspace{-1em}
 	\centering
 	\includegraphics[width=0.48\textwidth]{{"./img/Drawio/Use Cases/General use case diagram"}.png}
-	\vspace{-2em}
 \end{figure}
-\begin{table}[h]
-	\vspace{-1em}
+
+\begin{table}[!ht]
 	\centering
 	\caption{General use}
 	\label{tab:general_use}
 	\begin{tabu}{|l|X[l]|}
 		\hline
-		\textbf{Name}        & \textbf{General use} \\ \hline
-		Scope and Objectives & The lights on the lampposts switch on/off depending on the information of the movement and light sensor of the motes (if the light is low and the movement sensor detects something, the lights turn on, otherwise they turn off). The data collection centre receives periodically this data and it is capable to change some parameters or request some information of the motes. \\ \hline
-		Actors               & \begin{itemize}
+		Scope and Objectives & \noindent\parbox[c]{\hsize}{The lights on the lampposts switch on/off depending on the information of the movement and light sensor of the motes (if the light is low and the movement sensor detects something, the lights turn on, otherwise they turn off). The data collection centre receives periodically this data and it is capable to change some parameters or request some information of the motes.} \\ \hline
+		Actors               & \noindent\parbox[c]{\hsize}{\begin{itemize}
 								\item Pedestrians/vehicles
 								\item Data control department of the city
-								\end{itemize}  \\ \hline
-		Preconditions        & \begin{itemize}
+								\end{itemize} } \\ \hline
+		Preconditions        & \noindent\parbox[c]{\hsize}{\begin{itemize}
 								\item The sensor nodes are on
 								\item A pedestrian/vehicle comes/goes away from the node
-								\end{itemize}   \\ \hline
-		Post-conditions      & \begin{itemize}
+								\end{itemize} }  \\ \hline
+		Post-conditions      & \noindent\parbox[c]{\hsize}{ \begin{itemize}
 								\item The lights will turn on/off
 								\item All the measured information will be sent to the city data manager
-								\end{itemize} \\ \hline
-		Sequence Description & \begin{enumerate}
+								\end{itemize}} \\ \hline
+		Sequence Description & \noindent\parbox[c]{\hsize}{\begin{enumerate}
 								\item Obtain measurements of movement, temperature, humidity and light.
 								\item If there is a change in the movement sensor and the light measured is low, toggle the lights on the node.
 								\item Send the status of light to the data control department of the city.
-								\end{enumerate} \\ \hline
-		Exceptions           & The node is not able to communicate with the data control department of the city. \\ \hline
+								\end{enumerate}} \\ \hline
+		Exceptions           & \noindent\parbox[c]{\hsize}{The node is not able to communicate with the data control department of the city.} \\ \hline
 	\end{tabu}
-		\vspace{-6em}
+
 \end{table}
 
+\newpage
+\section{Receive Periodic Data}
+\begin{figure}[!ht]
+	\caption{Receive Periodic Data}
+	\label{fig:peridic_data}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Use Cases/Periodically receive data case diagram"}.png}
+\end{figure}
 
+\begin{table}[ht]
+	\centering
+	\caption{Receive Periodic Data}
+	\label{tab:periodic_data}
+	\begin{tabu}{|l|X[l]|}
+		\hline
+		Scope and Objectives & \parbox[c]{\hsize}{The motes are placed in the lampposts of the street getting information of the movement and the light. This information added to the LED status of the lamppost is sent to the data collection centre periodically.} \\ \hline
+		Actors               & \noindent\parbox[c]{\hsize}{Data control department of the city}      \\ \hline
+		Preconditions        & \noindent\parbox[c]{\hsize}{	\begin{itemize}
+								\item The sensor nodes are on
+								\item The sensor nodes have sufficient memory to store measured values when connection is off
+								\end{itemize}}  \\ \hline
+		Post-conditions      & \noindent\parbox[c]{\hsize}{\begin{itemize}
+								\item The measured value is stored in memory
+								\item The measured value is sent to the data control department of the city 
+								\end{itemize} } \\ \hline
+		Sequence Description & \noindent\parbox[c]{\hsize}{ \begin{enumerate}
+								\item Obtain measurement
+								\item Check the network
+								\item If network not available store data
+								\item Send all data to the data control department of the city 
+								\end{enumerate} } \\ \hline
+		Exceptions           & \noindent\parbox[c]{\hsize}{In case of error, report to the data control department of the city} \\ \hline
+	\end{tabu}
+\end{table}
 
+\newpage
+
+\section{Request data}
+\begin{figure}[!ht]
+	\caption{Request Data}
+	\label{fig:request_data}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.58\textwidth]{{"./img/Drawio/Use Cases/Request information case diagram"}.png}
+\end{figure}
+
+\begin{table}[!ht]
+	\centering
+	\caption{Request Data}
+	\label{tab:request_data}
+	\begin{tabu}{|l|X[l]|}
+		\hline
+		Scope and Objectives & \noindent\parbox[c]{\hsize}{The data collection centre have the possibility to request the information of the light and LED status of the motes and also the parameters that are using the motes. Furthermore, a ping functionality exists to check if the mote is alive.} \\ \hline
+		Actors               & \noindent\parbox[c]{\hsize}{Data control department of the city}  \\ \hline
+		Preconditions        & \noindent\parbox[c]{\hsize}{\begin{itemize}
+				 \item The sensor nodes are on
+				 \item The sensor node is online to get the request
+			 \end{itemize} }   \\ \hline
+		Post-conditions      & \noindent\parbox[c]{\hsize}{The measured value and statuses are sent to the data control department of the city} \\ \hline
+		Sequence Description & \noindent\parbox[c]{\hsize}{\begin{enumerate}
+				\item Check if node is online
+				\item If not then repeat x times
+				\item Request current data from node
+			\end{enumerate}} \\ \hline
+		Exceptions           & \noindent\parbox[c]{\hsize}{The sensor node does not respond after x requests}  \\ \hline
+	\end{tabu}
+\end{table}
 \renewcommand{\acronymname}{List of acronyms}
 
 \printglossaries
