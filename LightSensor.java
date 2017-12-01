@@ -34,11 +34,10 @@ import javax.microedition.midlet.MIDletStateChangeException;
  * be automatically selected for execution.
  *
  * @author userrsus
-
  */
-public class LightSensor extends MIDlet {
+public class LigSensor extends MIDlet {
 
-    private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.1001:123";
+    private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.7700:123";
 
     private ITriColorLEDArray leds = (ITriColorLEDArray)Resources.lookup(ITriColorLEDArray.class);
     private ISwitch sw1 = (ISwitch)Resources.lookup(ISwitch.class, "SW1");
@@ -58,6 +57,9 @@ public class LightSensor extends MIDlet {
 
     private boolean LEDStatus;
     private boolean prevStatus;
+
+    private boolean specialState;
+    private boolean LEDStatusRequired;
 
     Timer timerMovement;
     Timer timerLight;
@@ -121,15 +123,30 @@ public class LightSensor extends MIDlet {
 
     public void LEDManager(){
 
-        if(light && movement){
-            leds.setColor(LEDColor.GREEN);
-            leds.setOn();
-            LEDStatus = true;
+    if(!specialState){
+
+            if(light && movement ){
+                leds.setColor(LEDColor.GREEN);
+                leds.setOn();
+                LEDStatus = true;
+            }
+             else{
+                leds.setOff();
+                LEDStatus = false;
+             }
         }
-         else{
-            leds.setOff();
-            LEDStatus = false;
-         }
+        else{
+            if(LEDStatusRequired){
+                leds.setColor(LEDColor.GREEN);
+                leds.setOn();
+                LEDStatus = true;
+            }
+            else{
+                leds.setOff();
+                LEDStatus = false;
+        }
+      }
+
         if(LEDStatus != prevStatus){
             prevStatus = LEDStatus;
             try {
@@ -146,6 +163,7 @@ public class LightSensor extends MIDlet {
             }
 
         }
+
 
     }
 
@@ -171,6 +189,7 @@ public class LightSensor extends MIDlet {
                             xAgg.writeBoolean(light);
                             connAgg.send(xAgg);
                             xAgg.reset();
+                            break;
 
                         case 2:
                             LEDStatus = rAgg.readBoolean();
@@ -191,6 +210,7 @@ public class LightSensor extends MIDlet {
                             xAgg.writeInt(threshold);
                             connAgg.send(xAgg);
                             xAgg.reset();
+                            break;
 
                         case 4:
                             xAgg = (Radiogram) connAgg.newDatagram(50);
@@ -200,6 +220,7 @@ public class LightSensor extends MIDlet {
                             xAgg.writeInt(lightMeasure);
                             connAgg.send(xAgg);
                             xAgg.reset();
+                            break;
 
                         case 5:
                             xAgg = (Radiogram) connAgg.newDatagram(50);
@@ -207,6 +228,10 @@ public class LightSensor extends MIDlet {
                             xAgg.writeLong(MAC);
                             xAgg.writeByte(5);
                             xAgg.reset();
+
+                        case 6:
+                            specialState = xAgg.readBoolean();
+                            break;
                     }
             }
 
@@ -222,6 +247,9 @@ public class LightSensor extends MIDlet {
             light = false;
             LEDStatus = false;
             prevStatus = false;
+            specialState = false;
+            LEDStatusRequired = false;
+
             connAgg = (RadiogramConnection) Connector.open(ADDRESSAGGREGATING);
             rAgg = (Radiogram) connAgg.newDatagram(50);
             runTimerMovement(movementPeriod);
