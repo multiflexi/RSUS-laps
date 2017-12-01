@@ -308,7 +308,7 @@ Madrid 2018
 	\label{fig:request_data}
 	\vspace{-1em}
 	\centering
-	\includegraphics[width=0.58\textwidth]{{"./img/Drawio/Use Cases/Request information case diagram"}.png}
+	\includegraphics[width=0.68\textwidth]{{"./img/Drawio/Use Cases/Request information case diagram"}.png}
 \end{figure}
 
 \begin{table}[!ht]
@@ -332,6 +332,103 @@ Madrid 2018
 		Exceptions           & \noindent\parbox[c]{\hsize}{The sensor node does not respond after x requests}  \\ \hline
 	\end{tabu}
 \end{table}
+
+\newpage
+
+\section{Change parameters}
+\begin{figure}[!ht]
+	\caption{Change parameters}
+	\label{fig:change_parameters}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Use Cases/Change parameters case diagram"}.png}
+\end{figure}
+
+\begin{table}[!ht]
+	\centering
+	\caption{Change parameters}
+	\label{tab:change_parameters}
+	\begin{tabu}{|l|X[l]|}
+		\hline
+		Scope and Objectives & \noindent\parbox[c]{\hsize}{The data collection center is able to change the threshold of the light sensor and also has the possibility of switch on/off the lights in case of emergency.}     \\ \hline
+		Actors               & \noindent\parbox[c]{\hsize}{Data control department of the city}                                                                                                                               \\ \hline
+		Preconditions        & \noindent\parbox[c]{\hsize}{\begin{itemize}\item The sensor nodes are on \item The sensor node is online to get the request \item Led light is working\end{itemize} }  \\ \hline
+		Post-conditions      & \noindent\parbox[c]{\hsize}{\begin{itemize}\item The light is turned on/off \item Parameters are modified \item The status is sent to the data control department of the city\end{itemize}}  \\ \hline
+		Sequence Description & \noindent\parbox[c]{\hsize}{\begin{enumerate}\item Check if node is online \item If not then repeat x times \item Request switching on/off the light or change of parameters \item Send ack when light turns on or parameters are changed \end{enumerate}} \\ \hline
+		Exceptions           & \noindent\parbox[c]{\hsize}{\begin{itemize}\item The sensor node does not respond after x requests \item The light does not turn on/off\end{itemize}}         \\ \hline
+	\end{tabu}
+\end{table}
+
+\chapter{Project Design}
+\section{UML Component Diagrams}
+
+\begin{figure}[!ht]
+	\caption{Movement sensor}
+	\label{fig:movement_sensor_component}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Normal sensor"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Light sensor}
+	\label{fig:light_sensor_component}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Light Sensor"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Data collection centre}
+	\label{fig:data_collection_centre_component}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/datacollection"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Aggregator}
+	\label{fig:aggregator_component}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Aggregator"}.png}
+\end{figure}
+
+\section{UML Class Diagrams}
+\begin{figure}[!ht]
+	\caption{Movement sensor}
+	\label{fig:movement_sensor_class}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/NormalSensor"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Light sensor}
+	\label{fig:light_sensor_class}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/LightSensor"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Sink}
+	\label{fig:sink_class}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/sink"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Aggregator}
+	\label{fig:aggregator_class}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/Aggregator"}.png}
+\end{figure}
+
+\section{Sequence Diagrams}
+\begin{figure}[!ht]
+	\caption{Light Broadcast}
+	\label{fig:light_broadcast_sequence}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/Drawio/Sequence Diagrams/LightBroadcast"}.png}
+\end{figure}
 \renewcommand{\acronymname}{List of acronyms}
 
 \printglossaries
