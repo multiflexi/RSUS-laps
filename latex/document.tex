@@ -221,10 +221,41 @@ Madrid 2018
 \setcounter{page}{1}
 \tableofcontents
 
-
+\newacronym{hps}{HPS}{High-Pressure Sodium}
 
 \chapter{Introduction and Executive Summary}
+\section{Introduction}
+Smart or intelligent lighting is part of the recent IoT and Smart Cities trend. It is being installed in many cities of developed world improving the safety and efficiency of cities and expanding the services provided to citizens by cities. Our project demonstrates simple system of smart lighting which reacts to movement. 
+\section{Benefits of smart lighting}
+Main benefits are:
+\begin{itemize}
+	\item Improved Service
+	\item Improved Safety
+	\item Energy Savings
+	\item Reduced light pollution
+\end{itemize}
+New installations of smart lighting system in wast majority of cases makes use of LED lights which have improved lifetime period. This lowers costs of lightbulbs and also workforce needed for bulb replacements.
+
+Because the lights dim or turn off, they reduce the needed energy saving costs and environment. This with better light design helps to lower light pollution which is a waste of energy and also has negative impact on fauna. More progress in this are can be achieved by regulation to prevent unnecessary lighting and smart planing of street lighting. 
+
+In areas with low quality or reliability of lighting can newly installed lighting system lower the crime level especially when used with camera system.  
+\section{Existing implementations}
+\subsection{Chicago}
+In the largest city of Midwest lives approximately 2.7 million people on area of \SI{606}{\square\kilo\meter}. This area has $353000$ of outdoor lighting fixtures which in \SI{92}{\percent} of cases use \gls{hps} bulbs. Majority of light poles were installed in 1950's and 60's. City of Chicago decided to renovate its lighting system in fall 2017. Project goal is to replace $270000$ of existing \gls{hps} light fixtures with new energy-efficient LED lights which are now installed in only \SI{2}{\percent} of all street lights. City will be also able to use new lighting management system enabling real-time monitoring, control of the fixtures and in future support smart city applications. This will help to save \SI{50}{\percent} of the city's lighting electric bill, that is approximately \EUR{8.5} million every year. In terms of saved energy, the estimation is \SI{181679358}{\kilo\watt\hour}. City also hopes to lower the use of 311 line. The project should finish in 2021 and use at least \SI{50}{\percent} of local workforce. The program is part of Better Building Initiative which aim is to convert 1.5 million of outdoor lights nation-wide.
+\cite{chicago,chicago2}
+\subsection{Amsterdam}
+In 2012 cities of Amsterdam, Rotterdam and Eindhoven decided to create a trial of Smart Lights in Metropolitan Areas project. Amsterdam decided to create safe and pleasant living and operating environment for newly renovated square Hoekenrodeplein in Amsterdam's Zuidoost district. The city collaborated with Cisco, A2, Phillips, Alliander and KPN. Installed system combines adaptive lighting, cameras and public Wi-Fi. Each of 144 LED lights has its own IP address and can be controlled individually or automatically adapt thanks to sensors. The lights can not only change intensity but also change their colour. The saved energy is used for Wi-Fi network and air quality measuring.\cite{amsterdam, amsterdam2}
+\subsection{Project Implementation}
+For the project implementation we are using Sun SPOT JAVA Development Kit with 4 motes. Mote characteristics are:
+\begin{itemize}
+\item \SI{2.4}{\giga\hertz} IEEE 802.15.4 radio with an integrated antenna and a USB interface
+\item ARM architecture \SI{32}{\bit} CPU with ARM920T@\SI{180}{\mega\hertz}, \SI{512}{\kilo\byte} RAM and \SI{4}{\mega\byte} flash memory.
+\item sensor board includes a three-axis accelerometer, temperature sensor, light sensor, 8 tricolor LEDs, analogue and digital inputs, two momentary switches, and 4 high current output pins.
+\item unit uses \SI{3.7}{\volt} rechargeable \SI{750}{\milli\ampere\hour} lithium-ion battery, has \SI{30}{\micro\ampere} deep sleep mode and battery management is provided by software.
+\end{itemize}
+The software was developed on virtual machines running Ubuntu 10.04, Solarium simulation environment and Eclipse IDE.
 \chapter{Scheduling of workload}
+
 \chapter{Requirement Analysis}
 \section{General use}
 \begin{figure}[ht]
@@ -432,8 +463,9 @@ Madrid 2018
 \renewcommand{\acronymname}{List of acronyms}
 \chapter{Testing}
 \chapter{Conclusion}
+In this project we created a smart lighting system which reacts dynamically on movement of vehicles or pedestrians and is also managed remotely. Operator can turn the lights on or off, check if the sensor works, get current light intensity, change the threshold for night and day mode and also get the statistical data for use analysis.  
 
-
+The system could be vastly improved by better sensors which would not have to be wireless. The system might either be connected to metro-optical network or use power-line communication. 
 \printglossaries
 
 
