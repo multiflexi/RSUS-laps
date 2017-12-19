@@ -95,7 +95,7 @@ public class LigSensor extends MIDlet {
                 try {
                     lightMeasure = lightSensor.getAverageValue();
                     leds.setOff();
-                    
+
                     if(lightMeasure < threshold)
                         light = true;
                     else
@@ -198,7 +198,7 @@ public class LigSensor extends MIDlet {
 
                         case 2:
                             LEDStatusRequired = rAgg.readBoolean();
-                            xAgg.reset();
+                            rAgg.reset();
                             break;
 
                         case 3:
@@ -226,10 +226,14 @@ public class LigSensor extends MIDlet {
                             xAgg.writeLong(d.getTime());
                             xAgg.writeLong(myMAC);
                             xAgg.writeByte(5);
+                            xAgg.writeBoolean(true);
+                            connAgg.send(xAgg);
                             xAgg.reset();
-
+                          break;
                         case 6:
-                            specialState = xAgg.readBoolean();
+                            specialState = rAgg.readBoolean();
+                            System.out.println("the state "+specialState);
+                            rAgg.reset();
                             break;
                     }
             }

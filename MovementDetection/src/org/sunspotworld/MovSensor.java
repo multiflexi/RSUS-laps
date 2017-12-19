@@ -39,7 +39,7 @@ import javax.microedition.midlet.MIDletStateChangeException;
  * @author userrsus
 
  */
-public class NorSensor extends MIDlet {
+public class MovSensor extends MIDlet {
 
     private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.1001:123";
     private String BROADCAST = "radiogram://:124";
