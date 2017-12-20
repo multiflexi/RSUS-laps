@@ -102,7 +102,10 @@ public class Sink  implements  Runnable{
                      }
                     else if(homeframe.isPingDetection())
                      {
+                         if(homeframe.getDestAdress().substring(homeframe.getDestAdress().length()-1).equals("2"))
                         sendCommandToAgg((byte)5,false,false,getRecvConn(),getDg());
+                         else
+                         sendCommandToAgg((byte)5,true,false,getRecvConn(),getDg());
 
                         
                         homeframe.setPingDetection(false);
@@ -110,12 +113,19 @@ public class Sink  implements  Runnable{
                      }
                      else if(homeframe.isModeDetection())
                      {
+                         if(homeframe.getDestAdress().substring(homeframe.getDestAdress().length()-1).equals("2"))
                          sendCommandToAgg((byte)6,false,homeframe.isTypeMode(),getRecvConn(),getDg());
+                         else
+                          sendCommandToAgg((byte)6,true,homeframe.isTypeMode(),getRecvConn(),getDg());
                          homeframe.setModeDetection(false);
+
                      }
                      else if(homeframe.isLedControlDetection())
                      {
-                           sendCommandToAgg((byte)2,false,homeframe.isTypeMode(),getRecvConn(),getDg());
+                          if(homeframe.getDestAdress().substring(homeframe.getDestAdress().length()-1).equals("2"))
+                         sendCommandToAgg((byte)2,false,homeframe.isTypeMode(),getRecvConn(),getDg());
+                          else
+                            sendCommandToAgg((byte)2,true,homeframe.isTypeMode(),getRecvConn(),getDg());
                          homeframe.setLedControlDetection(false);
                      }
 

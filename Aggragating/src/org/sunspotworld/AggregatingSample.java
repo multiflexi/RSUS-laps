@@ -63,13 +63,9 @@ public class AggregatingSample extends MIDlet {
          }
 
 
-          CommandType cmdtype=new CommandType();
-           
+                   
         ManageAggregating agg=new ManageAggregating(tab);
-
-        // ComSInkManager comsink=new ComSInkManager( tab[0],130,cmdtype);
-
-      Thread t=new Thread(agg);
+         Thread t=new Thread(agg);
      
          t.start();
        

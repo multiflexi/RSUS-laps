@@ -58,7 +58,7 @@ public class ManageAggregating implements Runnable {
        
         if(receivedInfos.getCommand()==3 || receivedInfos.getCommand()==4)
             receivedInfos.setValue(datagram.readInt());
-        else if(receivedInfos.getCommand()==2 || receivedInfos.getCommand()==5)
+        else if(receivedInfos.getCommand()==1 || receivedInfos.getCommand()==2 || receivedInfos.getCommand()==5)
            receivedInfos.setTest(datagram.readBoolean());
         datagram.reset();
         return receivedInfos;
@@ -92,8 +92,12 @@ public class ManageAggregating implements Runnable {
                           System.out.println("Stimulation from BaseStation");
                        }
                  else if(cmd==2)
-                     {             receiveInfos[1].setTest(typeMode);
+
+                     {    receiveInfos[1].setTest(typeMode);
+                          if(typeDest==false)
                          sendInformation(receiveInfos[1],lightRad,connLight);
+                          else
+                         sendInformation(receiveInfos[1],moveRad,connMove);
                          dgSink.reset();
 
 
@@ -111,18 +115,55 @@ public class ManageAggregating implements Runnable {
                       }
                 else if(cmd==5)
                       {
+                       if(typeDest==false)
                         sendInformation(receiveInfos[4],lightRad, connLight);
+                       else
+                       sendInformation(receiveInfos[4],moveRad, connMove);
                         dgSink.reset();
                       }
                 else if(cmd==6)
                        {
                         receiveInfos[5].setTest(typeMode);
+                        if(typeDest==false)
                         sendInformation(receiveInfos[5],lightRad, connLight);
+                        else
+                         sendInformation(receiveInfos[5],moveRad, connMove);
+
                         dgSink.reset();
 
                 }
  
                  }
+                 if(connMove.packetsAvailable())
+                 {
+                     receiveInfos[0]=getInformation(moveRad, connMove);
+                     receiveInfos[0].afficher();
+                     
+
+                      if(receiveInfos[0].getCommand()==2)
+                     {
+                      receiveInfos[1]=receiveInfos[0];
+                      sendInformation(receiveInfos[1],dgSink, connToSink);
+                      receiveInfos[1].afficher();
+
+                     }
+                      else if(receiveInfos[0].getCommand()==5)
+                    {
+
+                      receiveInfos[4]=receiveInfos[0];
+                      sendInformation(receiveInfos[4],dgSink, connToSink);
+                      receiveInfos[4].afficher();
+                    }
+
+                    else if(receiveInfos[0].getCommand()==6)
+                    {
+
+                      receiveInfos[5]=receiveInfos[0];
+                      sendInformation(receiveInfos[5],dgSink, connToSink);
+                      receiveInfos[5].afficher();
+                    }
+                 }
+
                 if(connLight.packetsAvailable()){      
 
                     receiveInfos[0]=getInformation(lightRad,connLight);
@@ -131,6 +172,8 @@ public class ManageAggregating implements Runnable {
 
 
                           sendInformation(receiveInfos[0], broadRad, connBroad);
+                          receiveInfos[0].afficher();
+                        
                      
                      }
                     else if(receiveInfos[0].getCommand()==2)

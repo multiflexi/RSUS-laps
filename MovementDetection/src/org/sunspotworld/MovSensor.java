@@ -52,7 +52,7 @@ public class MovSensor extends MIDlet {
     private Radiogram xAgg, rAgg, lAgg;
 
     private boolean movement;
-    private int movementPeriod = 1*1000;
+    private int movementPeriod = 7*1000;
 
     private boolean light;
 
@@ -158,6 +158,7 @@ public class MovSensor extends MIDlet {
         try{
             long timeStamp = 0;
             long MAC = 0;
+            long myMAC=Spot.getInstance().getRadioPolicyManager().getIEEEAddress();
             byte command = 0;
             boolean value = false;
             if(connAgg.packetsAvailable()){
@@ -187,15 +188,15 @@ public class MovSensor extends MIDlet {
                             value = false;
                             xAgg = (Radiogram) connAgg.newDatagram(50);
                             xAgg.writeLong(d.getTime());
-                            xAgg.writeLong(MAC);
+                            xAgg.writeLong(myMAC);
                             xAgg.writeByte(5);
+                            xAgg.writeBoolean(true);
                             connAgg.send(xAgg);
                             xAgg.reset();
-                            rAgg.reset();
                             break;
 
                         case 6:
-                            specialState = xAgg.readBoolean();
+                            specialState = rAgg.readBoolean();
                             break;
 
                     }

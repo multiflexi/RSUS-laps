@@ -53,7 +53,7 @@ public class LigSensor extends MIDlet {
 
     private int lightMeasure;
     private boolean light;
-    private int lightPeriod = 7*1000;
+    private int lightPeriod = 3*1000;
     private int threshold = 400;
 
     private boolean LEDStatus;
