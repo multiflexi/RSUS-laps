@@ -17,6 +17,7 @@ import com.sun.spot.resources.transducers.ILightSensor;
 import com.sun.spot.resources.transducers.ISwitch;
 import com.sun.spot.resources.transducers.ITriColorLEDArray;
 import com.sun.spot.resources.transducers.LEDColor;
+import com.sun.spot.util.Utils;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Timer;
@@ -37,7 +38,7 @@ import javax.microedition.midlet.MIDletStateChangeException;
  */
 public class LigSensor extends MIDlet {
 
-    private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.7700:123";
+    private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.1001:122";
 
     private ITriColorLEDArray leds = (ITriColorLEDArray)Resources.lookup(ITriColorLEDArray.class);
     private ISwitch sw1 = (ISwitch)Resources.lookup(ISwitch.class, "SW1");
@@ -52,7 +53,7 @@ public class LigSensor extends MIDlet {
 
     private int lightMeasure;
     private boolean light;
-    private int lightPeriod = 1*1000;
+    private int lightPeriod = 3*1000;
     private int threshold = 400;
 
     private boolean LEDStatus;
@@ -93,6 +94,7 @@ public class LigSensor extends MIDlet {
             {
                 try {
                     lightMeasure = lightSensor.getAverageValue();
+                    leds.setOff();
 
                     if(lightMeasure < threshold)
                         light = true;
@@ -107,6 +109,7 @@ public class LigSensor extends MIDlet {
                     xAgg.writeBoolean(light);
                     connAgg.send(xAgg);
                     xAgg.reset();
+
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -172,19 +175,21 @@ public class LigSensor extends MIDlet {
         try{
             long timeStamp = 0;
             long MAC = 0;
+            long myMAC = Spot.getInstance().getRadioPolicyManager().getIEEEAddress();
             byte command = 0;
             boolean value = false;
             if(connAgg.packetsAvailable()){
+                    connAgg.receive(rAgg);
                     timeStamp = rAgg.readLong();
-                    MAC = Spot.getInstance().getRadioPolicyManager().getIEEEAddress();
+                    MAC = rAgg.readLong();
                     command = rAgg.readByte();
                     Date d = new Date();
-
+                    System.out.println("Command " + command);
                     switch (command){
                         case 1:
                             xAgg = (Radiogram) connAgg.newDatagram(50);
                             xAgg.writeLong(d.getTime());
-                            xAgg.writeLong(MAC);
+                            xAgg.writeLong(myMAC);
                             xAgg.writeByte(1);
                             xAgg.writeBoolean(light);
                             connAgg.send(xAgg);
@@ -192,20 +197,14 @@ public class LigSensor extends MIDlet {
                             break;
 
                         case 2:
-                            LEDStatus = rAgg.readBoolean();
-                            if(LEDStatus){
-                                leds.setColor(LEDColor.GREEN);
-                                leds.setOn();
-                            }
-                            else{
-                                leds.setOff();
-                            }
+                            LEDStatusRequired = rAgg.readBoolean();
+                            rAgg.reset();
                             break;
 
                         case 3:
                             xAgg = (Radiogram) connAgg.newDatagram(50);
                             xAgg.writeLong(d.getTime());
-                            xAgg.writeLong(MAC);
+                            xAgg.writeLong(myMAC);
                             xAgg.writeByte(3);
                             xAgg.writeInt(threshold);
                             connAgg.send(xAgg);
@@ -215,7 +214,7 @@ public class LigSensor extends MIDlet {
                         case 4:
                             xAgg = (Radiogram) connAgg.newDatagram(50);
                             xAgg.writeLong(d.getTime());
-                            xAgg.writeLong(MAC);
+                            xAgg.writeLong(myMAC);
                             xAgg.writeByte(4);
                             xAgg.writeInt(lightMeasure);
                             connAgg.send(xAgg);
@@ -225,12 +224,16 @@ public class LigSensor extends MIDlet {
                         case 5:
                             xAgg = (Radiogram) connAgg.newDatagram(50);
                             xAgg.writeLong(d.getTime());
-                            xAgg.writeLong(MAC);
+                            xAgg.writeLong(myMAC);
                             xAgg.writeByte(5);
+                            xAgg.writeBoolean(true);
+                            connAgg.send(xAgg);
                             xAgg.reset();
-
+                          break;
                         case 6:
-                            specialState = xAgg.readBoolean();
+                            specialState = rAgg.readBoolean();
+                            System.out.println("the state "+specialState);
+                            rAgg.reset();
                             break;
                     }
             }
@@ -243,6 +246,7 @@ public class LigSensor extends MIDlet {
     protected void startApp() throws MIDletStateChangeException {
 
         try {
+            System.out.println("Light sensor connected");
             movement = false;
             light = false;
             LEDStatus = false;
@@ -252,12 +256,13 @@ public class LigSensor extends MIDlet {
 
             connAgg = (RadiogramConnection) Connector.open(ADDRESSAGGREGATING);
             rAgg = (Radiogram) connAgg.newDatagram(50);
+            xAgg = (Radiogram) connAgg.newDatagram(50);
             runTimerMovement(movementPeriod);
             runTimerLight(lightPeriod);
 
             while(true){
                 LEDManager();
-                //commandsManager();
+                commandsManager();
             }
         } catch (IOException ex) {
             ex.printStackTrace();

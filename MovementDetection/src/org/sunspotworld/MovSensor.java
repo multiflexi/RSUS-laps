@@ -39,9 +39,9 @@ import javax.microedition.midlet.MIDletStateChangeException;
  * @author userrsus
 
  */
-public class NorSensor extends MIDlet {
+public class MovSensor extends MIDlet {
 
-    private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.7700:123";
+    private String ADDRESSAGGREGATING = "radiogram://7f00.0101.0000.1001:123";
     private String BROADCAST = "radiogram://:124";
 
 
@@ -52,7 +52,7 @@ public class NorSensor extends MIDlet {
     private Radiogram xAgg, rAgg, lAgg;
 
     private boolean movement;
-    private int movementPeriod = 1*1000;
+    private int movementPeriod = 7*1000;
 
     private boolean light;
 
@@ -158,6 +158,7 @@ public class NorSensor extends MIDlet {
         try{
             long timeStamp = 0;
             long MAC = 0;
+            long myMAC=Spot.getInstance().getRadioPolicyManager().getIEEEAddress();
             byte command = 0;
             boolean value = false;
             if(connAgg.packetsAvailable()){
@@ -165,7 +166,7 @@ public class NorSensor extends MIDlet {
                     timeStamp = rAgg.readLong();
                     MAC = rAgg.readLong();
                     command = rAgg.readByte();
-
+                    System.out.println("Command " + command);
                     switch (command){
                         case 1:
                             break;
@@ -187,19 +188,18 @@ public class NorSensor extends MIDlet {
                             value = false;
                             xAgg = (Radiogram) connAgg.newDatagram(50);
                             xAgg.writeLong(d.getTime());
-                            xAgg.writeLong(MAC);
+                            xAgg.writeLong(myMAC);
                             xAgg.writeByte(5);
+                            xAgg.writeBoolean(true);
                             connAgg.send(xAgg);
                             xAgg.reset();
-                            rAgg.reset();
                             break;
 
                         case 6:
-                            specialState = xAgg.readBoolean();
+                            specialState = rAgg.readBoolean();
                             break;
 
                     }
-           System.out.println("TimeStamp = " + timeStamp+ " MAC = "+IEEEAddress.toDottedHex(MAC)+" command = "+ command + " value = " +value);
 
             }
 
