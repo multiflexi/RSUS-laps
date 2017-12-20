@@ -250,7 +250,7 @@ For the project implementation we are using Sun SPOT JAVA Development Kit with 4
 \begin{itemize}
 \item \SI{2.4}{\giga\hertz} IEEE 802.15.4 radio with an integrated antenna and a USB interface
 \item ARM architecture \SI{32}{\bit} CPU with ARM920T@\SI{180}{\mega\hertz}, \SI{512}{\kilo\byte} RAM and \SI{4}{\mega\byte} flash memory.
-\item sensor board includes a three-axis accelerometer, temperature sensor, light sensor, 8 tricolor LEDs, analogue and digital inputs, two momentary switches, and 4 high current output pins.
+\item mote board includes a three-axis accelerometer, temperature sensor, light sensor, 8 tricolor LEDs, analogue and digital inputs, two momentary switches, and 4 high current output pins.
 \item unit uses \SI{3.7}{\volt} rechargeable \SI{750}{\milli\ampere\hour} lithium-ion battery, has \SI{30}{\micro\ampere} deep sleep mode and battery management is provided by software.
 \end{itemize}
 The software was developed on virtual machines running Ubuntu 10.04, Solarium simulation environment and Eclipse IDE.
@@ -394,18 +394,18 @@ The software was developed on virtual machines running Ubuntu 10.04, Solarium si
 \section{UML Component Diagrams}
 
 \begin{figure}[!ht]
-	\caption{Movement sensor}
-	\label{fig:movement_sensor_component}
+	\caption{Movement mote}
+	\label{fig:movement_mote_component}
 	\vspace{-1em}
 	\centering
-	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Normal sensor"}.png}
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Movement mote"}.png}
 \end{figure}
 \begin{figure}[!ht]
-	\caption{Light sensor}
-	\label{fig:light_sensor_component}
+	\caption{Light mote}
+	\label{fig:light_mote_component}
 	\vspace{-1em}
 	\centering
-	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Light Sensor"}.png}
+	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Components/Light Mote"}.png}
 \end{figure}
 \begin{figure}[!ht]
 	\caption{Data collection centre}
@@ -424,15 +424,15 @@ The software was developed on virtual machines running Ubuntu 10.04, Solarium si
 
 \section{UML Class Diagrams}
 \begin{figure}[!ht]
-	\caption{Movement sensor}
-	\label{fig:movement_sensor_class}
+	\caption{Movement mote}
+	\label{fig:movement_mote_class}
 	\vspace{-1em}
 	\centering
 	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/NormalSensor"}.png}
 \end{figure}
 \begin{figure}[!ht]
-	\caption{Light sensor}
-	\label{fig:light_sensor_class}
+	\caption{Light mote}
+	\label{fig:light_mote_class}
 	\vspace{-1em}
 	\centering
 	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/LightSensor"}.png}
@@ -460,12 +460,22 @@ The software was developed on virtual machines running Ubuntu 10.04, Solarium si
 	\centering
 	\includegraphics[width=0.98\textwidth]{{"./img/Drawio/Sequence Diagrams/LightBroadcast"}.png}
 \end{figure}
-\renewcommand{\acronymname}{List of acronyms}
+
+\section{Protocol diagram}
+\begin{figure}[!ht]
+	\caption{Protocol diagram}
+	\label{fig:protocol}
+	\vspace{-1em}
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/Drawio/Protocol"}.png}
+\end{figure}
 \chapter{Testing}
 \chapter{Conclusion}
-In this project we created a smart lighting system which reacts dynamically on movement of vehicles or pedestrians and is also managed remotely. Operator can turn the lights on or off, check if the sensor works, get current light intensity, change the threshold for night and day mode and also get the statistical data for use analysis.  
+In this project we created a smart lighting system which reacts dynamically on movement of vehicles or pedestrians and is also managed remotely. Operator can turn the lights on or off, check if the mote works, get current light intensity, change the threshold for night and day mode and also get the statistical data for use analysis.  
 
-The system could be vastly improved by better sensors which would not have to be wireless. The system might either be connected to metro-optical network or use power-line communication. 
+The system could be vastly improved by better motes which would not have to be wireless. The system might either be connected to metro-optical network or use power-line communication. 
+
+\renewcommand{\acronymname}{List of acronyms}
 \printglossaries
 
 
