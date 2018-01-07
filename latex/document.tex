@@ -255,7 +255,35 @@ For the project implementation we are using Sun SPOT JAVA Development Kit with 4
 \end{itemize}
 The software was developed on virtual machines running Ubuntu 10.04, Solarium simulation environment and Eclipse IDE.
 \chapter{Scheduling of workload}
-
+\begin{table}[]
+	\centering
+	\caption{My caption}
+	\label{my-label}
+	\begin{tabu}{llr}
+		\toprule[2pt]
+		TASK                                                   & AUTHOR         & WORK HOURS \\ \midrule
+		T1. Contextualization of the project                   & All            & \SI{1}{\hour}  \\
+		T2. Requirements analysis                              & All            & \SI{5}{\hour}  \\
+		T3. Design                                             & All            & \SI{5}{\hour}  \\ \midrule
+		T3.1 Use case diagrams                                 & All            & \SI{3}{\hour}  \\
+		T3.2 Sequence diagrams                                 & Diallo, Chaime & \SI{3}{\hour}  \\
+		T3.3 Components diagrams                               &                &            \\
+		T3.3.1 Components diagrams: normal and light sensor    & Jaime          & \SI{1}{\hour}   \\
+		T3.3.1 Components diagrams: aggregator                 & Jaroslav       & \SI{1}{\hour}   \\
+		T3.5 Class diagrams                                    &                &            \\
+		T3.5.1 Class diagrams: normal and light sensor         & Jaime          & \SI{1}{\hour}   \\
+		T3.5.1 Class diagrams: aggregator                      & Jaroslav       & \SI{1}{\hour}   \\
+		T3.6 Other diagrams: Protocol diagram                  & Jaime          & \SI{1}{\hour}   \\
+		T4. Implementation                                     &                &            \\ \midrule
+		T4.1 Implementation of MIDLET in mote 1: normal sensor & Jaime          & \SI{3}{\hour}   \\
+		T4.2 Implementation of MIDLET in mote 2: light sensor  & Jaime          & \SI{3}{\hour}   \\
+		T4.4 Implementation of aggregation-oriented MIDLET     & Jaroslav       & \SI{5}{\hour}   \\
+		T4.4 Implementation of user interface                  & Diallo         & \SI{6}{\hour}   \\
+		T5. Testing                                            & Jaime          & \SI{4}{\hour}    \\
+		T6. Document edition                                   & All            & \SI{5}{\hour}    \\
+		\bottomrule[2pt]
+	\end{tabu}
+\end{table}
 \chapter{Requirement Analysis}
 \section{General use}
 \begin{figure}[ht]
@@ -426,28 +454,28 @@ The software was developed on virtual machines running Ubuntu 10.04, Solarium si
 \begin{figure}[!ht]
 	\caption{Movement mote}
 	\label{fig:movement_mote_class}
-	\vspace{-1em}
+
 	\centering
 	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/NormalSensor"}.png}
 \end{figure}
 \begin{figure}[!ht]
 	\caption{Light mote}
 	\label{fig:light_mote_class}
-	\vspace{-1em}
+
 	\centering
 	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/LightSensor"}.png}
 \end{figure}
 \begin{figure}[!ht]
 	\caption{Sink}
 	\label{fig:sink_class}
-	\vspace{-1em}
+
 	\centering
 	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/sink"}.png}
 \end{figure}
 \begin{figure}[!ht]
 	\caption{Aggregator}
 	\label{fig:aggregator_class}
-	\vspace{-1em}
+
 	\centering
 	\includegraphics[width=0.78\textwidth]{{"./img/Drawio/Class Diagrams/Aggregator"}.png}
 \end{figure}
@@ -456,24 +484,104 @@ The software was developed on virtual machines running Ubuntu 10.04, Solarium si
 \begin{figure}[!ht]
 	\caption{Light Broadcast}
 	\label{fig:light_broadcast_sequence}
-	\vspace{-1em}
+
 	\centering
 	\includegraphics[width=0.98\textwidth]{{"./img/Drawio/Sequence Diagrams/LightBroadcast"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Example of use of protocol}
+	\label{fig:exprotocol}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{img/examProt.eps}
+\end{figure}
+
+\begin{figure}[!ht]
+	\caption{Base station}
+	\label{fig:basestation}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{img/BaseStation.eps}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Base station with light intensity sensor}
+	\label{fig:basestation2}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{img/BaseStation2.eps}
 \end{figure}
 
 \section{Protocol diagram}
 \begin{figure}[!ht]
 	\caption{Protocol diagram}
 	\label{fig:protocol}
-	\vspace{-1em}
+
 	\centering
 	\includegraphics[width=0.98\textwidth]{{"./img/Drawio/Protocol"}.png}
 \end{figure}
 \chapter{Testing}
-\chapter{Conclusion}
-In this project we created a smart lighting system which reacts dynamically on movement of vehicles or pedestrians and is also managed remotely. Operator can turn the lights on or off, check if the mote works, get current light intensity, change the threshold for night and day mode and also get the statistical data for use analysis.  
+In order to test the project, in first place the Java Solarium Emulator was used. Once the project was working well, it was tested on the real motes using the graphical interface. For doing that, three motes has been used: one for the light sensor, other for the movement sensor and another one for the aggregating. Furthermore, the base station was used. The following tests were done in order to verify the functioning of the project (the MAC address selector shows the MAC of the motes in Solarium, the first corresponds with the light mote and the second with the movement mote):
+\begin{figure}[!ht]
+	\caption{Motes used}
+	\label{fig:motes}
 
-The system could be vastly improved by better motes which would not have to be wireless. The system might either be connected to metro-optical network or use power-line communication. 
+	\centering
+	\includegraphics[width=0.88\textwidth]{{"./img/motes"}.jpg}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Graphical interface}
+	\label{fig:interface}
+
+	\centering
+	\includegraphics[width=0.88\textwidth]{{"./img/graphInter"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{Light information of the light sensor and threshold defined}
+	\label{fig:light}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/lightinfo"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{With the mode in Manual, it is possible to turn on/off the selected mote with the button
+		ON/OFF}
+	\label{fig:manual}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/manual"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{}
+	\label{fig:mote}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/mote"}.jpg}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{If the mode is set again to Automatic, it is possible to see the change of the light status whenever the switch (simulating a movement sensor) is pressed. The information registered includes the MAC of the mote, and the time.}
+	\label{fig:1}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/1"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{}
+	\label{fig:2}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/2"}.png}
+\end{figure}
+\begin{figure}[!ht]
+	\caption{}
+	\label{fig:last}
+
+	\centering
+	\includegraphics[width=0.98\textwidth]{{"./img/last"}.jpg}
+\end{figure}
+\chapter{Conclusion}
+In this project we created a smart lighting system which reacts dynamically on movement of vehicles or pedestrians, detects night and day, and is also managed remotely using GUI. Operator can turn the lights on or off, check if the mote works, get current light intensity, change the threshold for night and day mode and also get the statistical data for use analysis.  
+
+The system, if implemented, could be vastly improved by better newer motes which would not have to be wireless. The system might either be connected to metro-optical network or use power-line communication. As a product the system would be probably an indivisible part of public lighting and might incorporate other sensors and functions as explained in real life examples.
 
 \renewcommand{\acronymname}{List of acronyms}
 \printglossaries
